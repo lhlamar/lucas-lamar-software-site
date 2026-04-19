@@ -192,7 +192,7 @@ export default function Home() {
             </a>
             <a
               className="rounded-2xl border border-primary-300/20 bg-background/55 px-6 py-2.5 text-neutral-100/90 transition-all duration-200 hover:border-primary-300/45 hover:bg-background/80 hover:text-foreground"
-              href="/updated_resume_2026_1.pdf"
+              href="/lucas-lamar-resume-2026.pdf"
               download
             >
               Resume
@@ -255,7 +255,7 @@ export default function Home() {
                     </svg>
                   </a>
                   <a
-                    href="/updated_resume_2026_1.pdf"
+                    href="/lucas-lamar-resume-2026.pdf"
                     download
                     className="group inline-flex items-center gap-3 rounded-2xl border border-primary-300/35 bg-background/85 px-4 py-3 text-sm font-semibold text-foreground transition-all duration-200 hover:border-primary-300/65 hover:bg-background hover:shadow-[0_8px_24px_rgba(0,0,0,0.22)]"
                   >
