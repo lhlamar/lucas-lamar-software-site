@@ -117,6 +117,53 @@ const trainingsAndCerts = [
   },
 ];
 
+type FeaturedProject = {
+  title: string;
+  summary: string;
+  githubUrl: string;
+  liveUrl: string;
+  type: "Website" | "Application" | "Tool";
+  techStack: string[];
+  screenshotAlt: string;
+  screenshotSrc?: string;
+};
+
+const featuredProjects = [
+  {
+    title: "Lucas Lamar Software Site",
+    summary:
+      "Personal portfolio built with Next.js, showcasing experience, technical skills, and contact workflow in a polished responsive layout.",
+    githubUrl: "https://github.com/lhlamar/lucas-lamar-software-site",
+    liveUrl: "https://software.lucas-lamar.com/",
+    type: "Website",
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Cloudflare Workers"],
+    screenshotAlt: "Screenshot of Lucas Lamar software portfolio website",
+    screenshotSrc: "/projects/lucas-software-site.png",
+  },
+  {
+    title: "OhPake Site",
+    summary:
+      "Website for Oh.Pake, an indie music project. Features streaming links, social media, a merch store, and a contact form — all in a custom dark-themed layout.",
+    githubUrl: "https://github.com/lhlamar/ohpake-site",
+    liveUrl: "https://oh-pake.com/",
+    type: "Website",
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    screenshotAlt: "Screenshot of OhPake website",
+    screenshotSrc: "/projects/ohpake-site.png",
+  },
+  {
+    title: "Lucas Lamar Music Site",
+    summary:
+      "Personal music portfolio and link-in-bio style site, connecting listeners to streaming platforms, social profiles, and production work in one place.",
+    githubUrl: "https://github.com/lhlamar/lucas-lamar-music-site",
+    liveUrl: "https://music.lucas-lamar.com/",
+    type: "Website",
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    screenshotAlt: "Screenshot of Lucas Lamar music site",
+    screenshotSrc: "/projects/lucas-music-site.png",
+  },
+] satisfies FeaturedProject[];
+
 export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden">
@@ -130,6 +177,9 @@ export default function Home() {
             <ThemeToggle />
             <a className="hidden rounded-2xl border border-primary-300/20 bg-background/55 px-6 py-2.5 text-neutral-100/90 transition-all duration-200 hover:border-primary-300/45 hover:bg-background/80 hover:text-foreground sm:inline-flex" href="#work-experience">
               Work
+            </a>
+            <a className="hidden rounded-2xl border border-primary-300/20 bg-background/55 px-6 py-2.5 text-neutral-100/90 transition-all duration-200 hover:border-primary-300/45 hover:bg-background/80 hover:text-foreground sm:inline-flex" href="#featured-projects">
+              Projects
             </a>
             <a className="hidden rounded-2xl border border-primary-300/20 bg-background/55 px-6 py-2.5 text-neutral-100/90 transition-all duration-200 hover:border-primary-300/45 hover:bg-background/80 hover:text-foreground sm:inline-flex" href="#education">
               Education
@@ -159,17 +209,17 @@ export default function Home() {
           <div className="mx-auto flex w-full max-w-6xl flex-1 items-center px-6 sm:px-10 lg:px-16">
             <div className="grid w-full items-center gap-10 py-16 lg:grid-cols-[1fr_auto] lg:gap-16 lg:py-24">
               {/* Left — text content */}
-              <div className="order-2 lg:order-1">
+              <div className="order-2 text-center lg:order-1 lg:text-left">
                 <p className="section-label text-xs text-primary-300">Full Stack Software Engineer</p>
                 <h1 className="mt-4 text-4xl font-bold leading-tight text-neutral-50 sm:text-5xl lg:text-6xl xl:text-7xl">
                   Lucas H. Lamar
                 </h1>
-                <p className="mt-6 max-w-xl text-lg leading-relaxed text-neutral-200">
+                <p className="mt-6 mx-auto max-w-xl text-lg leading-relaxed text-neutral-200 lg:mx-0">
                   {emphasizeKeywords(
                     "Software Engineer at CGI building full-stack applications with .NET, Angular, and React. Experience developing backend services, REST APIs, and working with SQL databases in Agile environments. Delivered internal enterprise applications for Southern Company as a primary client.",
                   )}
                 </p>
-                <div className="mt-8 flex flex-wrap gap-3">
+                <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
                   <a
                     href="https://github.com/lhlamar"
                     target="_blank"
@@ -271,8 +321,115 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Education ── base bg */}
-        <section id="education" className="w-full scroll-mt-20">
+        {/* ── Featured Projects ── base bg */}
+        <section id="featured-projects" className="w-full scroll-mt-20">
+          <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 lg:px-16">
+            <SectionTitle label="Portfolio" title="Featured Projects" />
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-100">
+              A selection of some of my personal projects, each with linked source code. Limited to my most recent personal work.
+            </p>
+
+            <div className="mt-12 flex flex-col divide-y divide-neutral-700/40">
+              {featuredProjects.map((project, index) => {
+                const hasLiveUrl = project.liveUrl.trim().length > 0;
+                const isEven = index % 2 === 0;
+
+                return (
+                  <article
+                    key={project.githubUrl}
+                    className="grid items-center gap-8 py-12 first:pt-0 lg:grid-cols-2 lg:gap-12"
+                  >
+                    {/* Text — alternates order on lg */}
+                    <div className={isEven ? "lg:order-1" : "lg:order-2"}>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <h3 className="text-2xl font-semibold text-primary-50">{project.title}</h3>
+                        <span className="rounded-full border border-primary-300/30 bg-background/65 px-3 py-1 text-xs uppercase tracking-[0.16em] text-primary-200">
+                          {project.type}
+                        </span>
+                      </div>
+
+                      <p className="mt-4 text-base leading-relaxed text-neutral-100">
+                        {emphasizeKeywords(project.summary)}
+                      </p>
+
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {project.techStack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="rounded-full border border-primary-300/25 bg-neutral-800/60 px-3 py-1 text-sm text-neutral-100"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="mt-6 flex flex-wrap gap-3">
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-xl border border-primary-300/35 bg-background/70 px-4 py-2.5 text-sm font-semibold text-neutral-100 transition-all duration-200 hover:border-primary-300/65 hover:bg-background"
+                        >
+                          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2C6.48 2 2 6.58 2 12.24c0 4.53 2.87 8.38 6.84 9.74.5.1.68-.22.68-.49 0-.24-.01-1.04-.02-1.88-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.08 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.7.12 2.5.35 1.9-1.33 2.74-1.05 2.74-1.05.55 1.41.2 2.45.1 2.71.64.72 1.02 1.64 1.02 2.76 0 3.95-2.34 4.82-4.57 5.08.36.32.68.95.68 1.92 0 1.39-.01 2.5-.01 2.84 0 .27.18.6.69.49A10.25 10.25 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z" />
+                          </svg>
+                          Repo
+                        </a>
+                        {hasLiveUrl ? (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-xl border border-primary-300/35 bg-background/70 px-4 py-2.5 text-sm font-semibold text-neutral-100 transition-all duration-200 hover:border-primary-300/65 hover:bg-background"
+                          >
+                            <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                              <path d="M7 5h8v8" />
+                              <path d="m7 13 8-8" />
+                            </svg>
+                            View
+                          </a>
+                        ) : null}
+                      </div>
+                    </div>
+
+                    {/* Screenshot — alternates order on lg */}
+                    <div className={`overflow-hidden rounded-2xl border border-primary-300/20 shadow-[0_12px_32px_rgba(0,0,0,0.28)] ${isEven ? "lg:order-2" : "lg:order-1"}`}>
+                      <div className="relative aspect-video bg-neutral-900">
+                        {project.screenshotSrc ? (
+                          <a
+                            href={project.liveUrl || project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block h-full w-full"
+                            aria-label={`Visit ${project.title}`}
+                          >
+                            <Image
+                              src={project.screenshotSrc}
+                              alt={project.screenshotAlt}
+                              fill
+                              className="object-cover object-top transition-transform duration-300 hover:scale-[1.02]"
+                              sizes="(min-width: 1024px) 50vw, 100vw"
+                            />
+                          </a>
+                        ) : (
+                          <div className="flex h-full items-center justify-center text-center">
+                            <div>
+                              <p className="section-label text-[11px] text-primary-300">Project Screenshot</p>
+                              <p className="mt-2 px-4 text-sm text-neutral-200">{project.screenshotAlt}</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Education ── slightly lighter tint */}
+        <section id="education" className="w-full scroll-mt-20 bg-neutral-900/60">
           <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 lg:px-16">
             <SectionTitle label="Academic" title="Education" />
             <div className="mt-10">
@@ -281,13 +438,12 @@ export default function Home() {
                 <p className="text-base text-primary-200">{education.date}</p>
               </div>
               <p className="mt-3 text-base text-neutral-100">{emphasizeKeywords(education.degree)}</p>
-              <p className="mt-1 text-base text-primary-200">{education.gpa}</p>
             </div>
           </div>
         </section>
 
         {/* ── Technical Skills ── slightly lighter tint */}
-        <section id="technical-skills" className="w-full scroll-mt-20 bg-neutral-900/60">
+        <section id="technical-skills" className="w-full scroll-mt-20">
           <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 lg:px-16">
             <SectionTitle label="Toolkit" title="Technical Skills" />
             <div className="mt-10 flex flex-wrap gap-3">
@@ -304,7 +460,7 @@ export default function Home() {
         </section>
 
         {/* ── Trainings & Certs ── base bg */}
-        <section id="trainings" className="w-full scroll-mt-20">
+        <section id="trainings" className="w-full scroll-mt-20 bg-neutral-900/60">
           <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 lg:px-16">
             <SectionTitle label="Development" title="Trainings and Certifications" />
             <div className="mt-10 flex flex-col divide-y divide-neutral-700/50">
@@ -327,7 +483,7 @@ export default function Home() {
         </section>
 
         {/* ── Contact ── slightly lighter tint */}
-        <section id="contact" className="w-full scroll-mt-20 bg-neutral-900/60">
+        <section id="contact" className="w-full scroll-mt-20">
           <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 lg:px-16">
             <SectionTitle label="Connect" title="Get In Touch" />
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-100">
